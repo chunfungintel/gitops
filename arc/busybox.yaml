@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-busybox
+  namespace: arc-test
+  labels:
+    app: busybox
+spec:
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        imagePullPolicy : IfNotPresent
+        command:
+        - sh
+        - -c
+        - |
+          echo "Sleeping..." && sleep infinity
+        env:
+        - name: TEST_NAME
+          value: "TEST_01"
